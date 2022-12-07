@@ -108,10 +108,10 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
   }
 
   // Remove any photo
-  if (bootcamp.photo.url !== 'no-photo.jpg') {
-    // Remove from cloudinary
-    const res = await cloudinary.uploader.destroy(bootcamp.photo.filename);
-  }
+  // if (bootcamp.photo.url !== 'no-photo.jpg') {
+  //   // Remove from cloudinary
+  //   const res = await cloudinary.uploader.destroy(bootcamp.photo.filename);
+  // }
 
   bootcamp.remove();
 
@@ -169,27 +169,27 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
   if (filesize > process.env.MAX_FILE_UPLOAD) {
     console.log('bootcampPhotoUpload - FILE TOO LARGE');
     return next(
-      new ErrorResponse(
-        `Please upload an image less than ${process.env.MAX_FILE_UPLOAD} bytes (1MB)`,
-        400
-      )
+        new ErrorResponse(
+            `Please upload an image less than ${process.env.MAX_FILE_UPLOAD} bytes (1MB)`,
+            400
+        )
     );
   }
 
   const bootcamp = await Bootcamp.findById(req.params.id);
   if (!bootcamp) {
     return next(
-      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+        new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
     );
   }
 
   // Make sure user is bootcamp owner
   if (bootcamp.user.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
-      new ErrorResponse(
-        `User ${req.user.id} is not authorized to update this bootcamp`,
-        401
-      )
+        new ErrorResponse(
+            `User ${req.user.id} is not authorized to update this bootcamp`,
+            401
+        )
     );
   }
 

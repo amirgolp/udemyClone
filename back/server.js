@@ -40,6 +40,9 @@ const reviews = require('./routes/reviews');
 // Body parser
 app.use(express.json({ limit: '5mb' }));
 
+// File Upload
+// app.use(fileUpload)
+
 // Cookie parser
 app.use(cookieParser());
 

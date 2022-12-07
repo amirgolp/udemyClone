@@ -47,13 +47,17 @@ const ManageBootcampsPage = props => {
 
     setDisableButtons(true);
 
+    // const formData = new FormData();
+    // formData.append('File', selectedFile);
+    //
+    // await submitBootcampPhoto(bootcamp[0]._id, formData)
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = async () => {
       await submitBootcampPhoto(bootcamp[0]._id, reader.result);
     };
     reader.onerror = () => {
-      console.error('reader.onerror - AHHHHHHHH!!');
+      console.error('reader.onerror - Grrrrrrr!!');
       notifyError(`👎 something went wrong!`);
     };
 
